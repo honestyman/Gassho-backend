@@ -29,7 +29,7 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json(errors.array()[0].msg);
     }
-    const { name, email, password } = req.body;
+    const { name, email, password, country } = req.body;
     try {
       let user = await User.findOne({ 
         where: {
@@ -43,7 +43,8 @@ router.post(
       user = {
         name: name,
         email: email,
-        password: password
+        password: password,
+        country: country
       };
 
       const salt = await bcrypt.genSalt(10);

@@ -31,7 +31,6 @@ const upload_image = multer({
       var extname = filetypes.test(
           path.extname(file.originalname).toLowerCase()
       );
-
       if (mimetype && extname) {
           return cb(null, true);
       }
