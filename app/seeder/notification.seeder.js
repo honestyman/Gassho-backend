@@ -17,6 +17,7 @@ module.exports = () => {
     async() => {
         //  let date = moment(new Date()).tz('America/Anchorage').format('YYYY-MM-DD');
         let date = moment(new Date()).tz('Asia/Tokyo').format();
+        // console.log("Date:",date)
 
         // let ank = datetime.toLocaleString('ja_JP', { timeZone: 'Asia/Tokyo' });
         var send_date=date.slice(0,10);

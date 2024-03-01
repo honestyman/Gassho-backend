@@ -4,19 +4,29 @@ const path = require("path");
 require('dotenv').config();
 const router = express.Router();
 const config = require("config");
+const moment = require('moment-timezone')
+
 const { check, validationResult } = require("express-validator");
 
 const db = require('../models');
 const User = db.user;
+const Item=db.item;
 
 const storage_image = multer.diskStorage({
   destination: (req, file, cb) => {
     // Specify the directory where the file will be saved
     cb(null, './uploads/img/');
   },
-  filename: (req, file, cb) => {
-    // Generate a unique filename for the uploaded file
-    cb(null, file.originalname);
+  filename: async(req, file, cb) => {
+        // Generate a unique filename for the uploaded file
+    const item = await Item.findOne({
+      where: {
+        main_image_url: '/img/'+file.originalname
+      }
+    });
+    cb(null, Date.now().toString().slice(0,11)+file.originalname);
+    item.main_image_url='/img/'+Date.now().toString().slice(0,11)+file.originalname;
+    item.save();
   }
 });
 const maxSize = 1 * 500 * 500;
@@ -27,7 +37,6 @@ const upload_image = multer({
     // Set the filetypes, it is optional
       var filetypes = /jpeg|jpg|png/;
       var mimetype = filetypes.test(file.mimetype);
-
       var extname = filetypes.test(
           path.extname(file.originalname).toLowerCase()
       );
@@ -47,9 +56,17 @@ const upload_image = multer({
       // Specify the directory where the file will be saved
       cb(null, './uploads/sound/');
     },
-    filename: (req, file, cb) => {
+    filename: async(req, file, cb) => {
       // Generate a unique filename for the uploaded file
-      cb(null, file.originalname);
+      // console.log("==========>",date);
+      const item = await Item.findOne({
+        where: {
+          filename: file.originalname
+        },
+      });
+      cb(null, Date.now().toString().slice(0,11)+file.originalname);
+      item.filename=Date.now().toString().slice(0,11)+file.originalname;
+      item.save();
     }
   });
 
