@@ -144,7 +144,7 @@ router.post('/forget_password',
           subject: 'Email Verification',
           text: `こんにちは。
                 パスワードを変更するには、次のリンクをクリックしてください。
-                http://localhost:3000/verify/${user.id}/${token}`
+                ${process.env.BASE_URL}/verify/${user.id}/${token}`
         };
   
         transpoter.sendMail(mailContigrations, function (error, info) {
