@@ -29,7 +29,7 @@ const storage_image = multer.diskStorage({
     item.save();
   }
 });
-const maxSize = 1 * 500 * 500;
+const maxSize = 1 * 500 * 500;  
 const upload_image = multer({
    storage: storage_image,
    limits: { fileSize: maxSize },

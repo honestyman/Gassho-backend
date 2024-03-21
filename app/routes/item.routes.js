@@ -13,6 +13,7 @@ module.exports = app => {
   router.get('/getallcategory', items.getAllCategory);
   router.post('/like', items.addLike);
   router.get('/getlike', items.getLike);
+  router.get('/getonelike', items.getOneLike);
   router.get('/getplay', items.getPlay);
   router.get('/getdownload', items.getDownload);
   router.post('/download', items.addDownload);
@@ -21,6 +22,7 @@ module.exports = app => {
   router.get('/en_search', items.getEnContentSearch);
   router.get('/category_search', items.getCategorySearch);
   router.get('/tab_search', items.getTabSearch);
+  router.post('/addgive', items.addGive);
 
   // -------admin----------
   router.post('/additem_video', items.addItemVideo);

@@ -19,6 +19,7 @@ module.exports = app => {
   router.get('/getone_introduction', users.getOneIntroduction);
   router.get('/getstatus', users.getStatus);
   router.get('/get_tiping', users.getTiping);
+  router.get('/getname', users.getName);
   router.post('/plan', users.addPlan);
   router.post('/notification', users.setNotification);
   router.post('/verify', users.emailVerify);

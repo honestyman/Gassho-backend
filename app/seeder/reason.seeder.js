@@ -28,7 +28,7 @@ module.exports = () => {
       });
       Reason.create({
         id:"5",
-        text: "著名なお寺の僧侶から人生で 役立ちそうな話を聞きた",
+        text: "著名なお寺の僧侶から人生で 役立ちそうな話を聞きたい",
         en_text: "I would like to hear life tips from monks in famous Buddhist temples"
       });
       Reason.create({

@@ -9,6 +9,7 @@ const Download = db.download
 const Play = db.play
 const User = db.user
 const Category = db.category
+const Give=db.give
 // const CampaignGettingHistory = db.campaignGettingHistory
 // const CampaignQueries = db.campaignQueries
 // const CampaignInfo = db.campaignInfo
@@ -88,6 +89,31 @@ exports.getLike = async (req, res) => {
       result[i] = item
     }
     return res.status(200).json(result)
+  } catch (error) {
+    res.status(500).json({
+      message: error.message || ''
+    })
+  }
+}
+
+exports.getOneLike = async (req, res) => {
+  try {
+    const user = await User.findOne({
+      where: {
+        email: req.query.email
+      }
+    })
+    const like = await Like.findOne({
+      where: {
+        userId: user.id,
+        itemId:req.query.id
+      }
+    })
+    if(like){
+      return res.status(200).json("yes")
+    }else{
+      return res.status(200).json("no")
+    }
   } catch (error) {
     res.status(500).json({
       message: error.message || ''
@@ -275,6 +301,28 @@ exports.addPlays = async (req, res) => {
         userId: user.id,
         itemId: req.body.itemID
       }
+    });
+    return res.status(200).json("success")
+  } catch (error) {
+    res.status(500).json({
+      message: error.message || ''
+    })
+  }
+}
+
+exports.addGive = async (req, res) => {
+  // console.log(req.body);
+  try {
+    const user = await User.findOne({
+      where: {
+        email: req.body.email
+      },
+      order: [['email', 'DESC']],
+    });
+    const give = await Give.create({
+      userId:user.id,
+      itemId:req.body.itemID,
+      amount:req.body.amount
     });
     return res.status(200).json("success")
   } catch (error) {

@@ -273,6 +273,23 @@ exports.getTiping = async (req, res) => {
   }
 }
 
+exports.getName = async (req, res) => {
+  try {
+    // console.log(req.query.id)
+    var user = await User.findOne({
+      where:{
+        email:req.query.email
+      }
+    });
+    //  console.log(user)
+    return res.status(200).json(user.name)
+  } catch (error) {
+    res.status(500).json({
+      message: error.message || ''
+    })
+  }
+}
+
 exports.getAllSub = async (req, res) => {
   try {
     // console.log(req.query.id)
